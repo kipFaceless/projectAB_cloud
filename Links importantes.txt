@@ -1,0 +1,13 @@
+LINK DA APP NO AZURE:
+https://projectb2.azurewebsites.net/
+
+
+LINK DA IMAGEM NO DOCKERHUB:
+https://hub.docker.com/r/kipfaceless/projectb2/tags
+
+Comando para baixar a imagem do projeto:
+docker pull kipfaceless/projectb2:latest
+
+
+LINK NO GITHUB
+

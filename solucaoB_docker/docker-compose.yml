@@ -1,0 +1,57 @@
+version: '3.9'
+
+services:
+  projectb1:
+    image: projectb1
+    container_name: projectb11
+    ports:
+      - "8081:80"
+    networks:
+      - webnet
+
+  projectb2:
+    image: projectb2
+    container_name: projectb22
+    ports:
+      - "8082:80"
+    networks:
+      - webnet
+
+  load_balancer1:
+    image: nginx:latest
+    volumes:
+      - ./nginx/load_balancer1.conf:/etc/nginx/nginx.conf
+    ports:
+      - "8084:80"  
+    depends_on:
+      - projectb1
+      - projectb2
+    networks:
+      - webnet
+
+  load_balancer2:
+    image: nginx:latest
+    volumes:
+      - ./nginx/load_balancer2.conf:/etc/nginx/nginx.conf
+    ports:
+      - "8083:80"  
+    depends_on:
+      - projectb1
+      - projectb2
+    networks:
+      - webnet
+
+  main_load_balancer:
+    image: nginx:latest
+    volumes:
+      - ./nginx/main_load_balancer.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
+    depends_on:
+      - load_balancer1
+      - load_balancer2
+    networks:
+      - webnet
+
+networks:
+  webnet:
